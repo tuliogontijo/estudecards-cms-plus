@@ -13,10 +13,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Lock files (escolha um: npm OU yarn)
-# Se usar npm, descomente a linha abaixo:
-# yarn.lock
-# Se usar yarn, descomente a linha abaixo:
-# package-lock.json
+yarn.lock
 
 # ========================================
 # ARQUIVOS DE DESENVOLVIMENTO
@@ -138,11 +135,3 @@ coverage/
 *.bak
 *.backup
 *.old
-
-# ========================================
-# COMENTÁRIOS PARA SEU PROJETO
-# ========================================
-
-# Descomente se quiser ignorar arquivos específicos:
-# src/config-local.js
-# icons/icon-dev.png
