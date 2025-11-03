@@ -1,0 +1,15 @@
+.btn-container {
+  margin-left: 10px !important;
+}
+
+.btn-img-container {
+  display: block;
+  text-align: center;
+  height: 100%;
+  margin: auto;
+  align-content: center;
+}
+
+.btn-img {
+  width: 60%;
+}

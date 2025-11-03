@@ -14,6 +14,7 @@ yarn-error.log*
 
 # Lock files (escolha um: npm OU yarn)
 yarn.lock
+package-lock.json
 
 # ========================================
 # ARQUIVOS DE DESENVOLVIMENTO

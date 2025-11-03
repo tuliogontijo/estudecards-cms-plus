@@ -10,13 +10,28 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'content-script.bundle.js',
-      clean: true, // Limpa pasta dist a cada build
+      clean: true,
     },
     
-    // Source maps para debugging
     devtool: isDevelopment ? 'cheap-module-source-map' : false,
     
-    // Watch mode para desenvolvimento
+    module: {
+      rules: [
+        {
+          test: /\.(png|jpe?g|gif|svg|ico)$/i,
+          type: 'asset',
+          parser: {
+            dataUrlCondition: {
+              maxSize: 8 * 1024 // 8kb
+            }
+          },
+          generator: {
+            filename: 'img/[name].[hash][ext]'
+          }
+        }
+      ],
+    },
+    
     watch: isDevelopment,
     watchOptions: {
       ignored: /node_modules/,
@@ -30,28 +45,30 @@ module.exports = (env, argv) => {
             to: "." 
           },
           { 
-            from: "icons", 
+            from: "assets/icons", 
             to: "icons" 
           },
           {
-            from: "styles",
-            to: "styles"
+            from: "src/styles", 
+            to: "styles" 
           }
         ],
       }),
     ],
     
-    // Configurações para melhor debugging
     optimization: {
       minimize: !isDevelopment,
     },
     
-    // Resolve para facilitar imports
     resolve: {
       alias: {
         '@components': path.resolve(__dirname, 'src/components'),
         '@utils': path.resolve(__dirname, 'src/utils'),
         '@services': path.resolve(__dirname, 'src/services'),
+        '@styles': path.resolve(__dirname, 'src/styles'),
+        '@assets': path.resolve(__dirname, 'assets'),
+        '@icons': path.resolve(__dirname, 'assets/icons'),
+        '@img': path.resolve(__dirname, 'assets/img'),
       }
     }
   };

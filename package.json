@@ -8,11 +8,17 @@
     "debug": "webpack --mode=development --devtool=eval-source-map"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "copy-webpack-plugin": "^12.0.2"
+    "webpack-cli": "^5.1.4"
   },
-  "keywords": ["chrome-extension", "cms", "bulk-operations"],
+  "keywords": [
+    "chrome-extension",
+    "cms",
+    "bulk-operations"
+  ],
   "author": "Tulio Gontijo",
   "license": "MIT"
 }
