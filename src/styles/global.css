@@ -13,3 +13,8 @@
 .btn-img {
   width: 60%;
 }
+
+.ui-dialog-content * {
+  line-height: normal !important;
+  padding: 10px !important;
+}

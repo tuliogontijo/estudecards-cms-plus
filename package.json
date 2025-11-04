@@ -8,9 +8,13 @@
     "debug": "webpack --mode=development --devtool=eval-source-map"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0",
+    "eslint": "^9.39.1",
+    "eslint-webpack-plugin": "^5.0.2",
+    "globals": "^16.5.0",
+    "mini-css-extract-plugin": "^2.9.4",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   },
@@ -20,5 +24,10 @@
     "bulk-operations"
   ],
   "author": "Tulio Gontijo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "jquery-ui-dist": "^1.13.3",
+    "papaparse": "^5.5.3"
+  }
 }
