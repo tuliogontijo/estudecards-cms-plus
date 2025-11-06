@@ -17,12 +17,13 @@ const ModalDBSelect = (page = 'registros') => {
     width: 400,
     modal: true,
     show: 300,
+    close: () => clearInputs(),
     buttons: [
       {
         id: 'btnSendCSV',
         text: 'Enviar',
         disabled: true,
-        prepend: '<span class=\'ui-icon ui-icon-triangle-1-n\'></span>',
+        prepend: '<span class=\'ui-icon ui-icon-circle-triangle-n\'></span>',
         click: function () {
           $('#dataBase small').remove();
           const file = $('#inputCSV')[0].files[0];
@@ -30,7 +31,7 @@ const ModalDBSelect = (page = 'registros') => {
 
           if (fileExtension === '.csv') {
             csvProcessor(file);
-            //   $('#analiseCSV').dialog('open');
+            $('#confirm').dialog('open');
             $(this).dialog('close');
           } else {
             $('#inputCSV').after('<small class="small-error">Arquivo inválido! Selecione um documento no formato "CSV".</small>');

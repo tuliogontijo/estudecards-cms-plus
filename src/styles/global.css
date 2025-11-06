@@ -23,3 +23,7 @@
   display: block;
   color: red;
 }
+
+#inputCSV {
+  width: calc(100% - 22px);
+}
