@@ -18,3 +18,8 @@
   line-height: normal !important;
   padding: 10px !important;
 }
+
+.small-error {
+  display: block;
+  color: red;
+}

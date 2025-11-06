@@ -73,6 +73,7 @@ module.exports = (env, argv) => {
         '@fn': path.resolve(__dirname, 'src/functions'),
         '@styles': path.resolve(__dirname, 'src/styles'),
         '@img': path.resolve(__dirname, 'assets/img'),
+        '@utils': path.resolve(__dirname, 'src/utils'),
         'jquery-ui': 'jquery-ui-dist/jquery-ui.js'
       }
     }

@@ -5,25 +5,26 @@ import '@styles/global.css';
 
 import 'jquery-ui-dist/jquery-ui.css';
 
-import ButtonCreateBulk from '@components/ButtonCreateBulk';
-import initModals from '@fn/initModals';
+import initUI from '@fn/initUI';
 
 (function () {
   'use strict';
 
   const pathName = document.location.pathname;
   let page;
+  let inject = true;
 
   if (pathName.includes('disciplina_cards')) {
     page = 'Cards';
   } else if (pathName.includes('disciplina_perguntas')) {
     page = 'Perguntas';
+  } else {
+    inject = false;
+
   }
 
+  inject && initUI(page);
 
-
-  initModals(page);
-  ButtonCreateBulk(page);
 
 
 

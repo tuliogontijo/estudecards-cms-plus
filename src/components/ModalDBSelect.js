@@ -1,5 +1,5 @@
-
 import csvProcessor from '@fn/csvProcessor';
+import clearInputs from '@utils/clearInputs';
 
 const ModalDBSelect = (page = 'registros') => {
 
@@ -24,6 +24,7 @@ const ModalDBSelect = (page = 'registros') => {
         disabled: true,
         prepend: '<span class=\'ui-icon ui-icon-triangle-1-n\'></span>',
         click: function () {
+          $('#dataBase small').remove();
           const file = $('#inputCSV')[0].files[0];
           const fileExtension = file.name.substring(file.name.lastIndexOf('.'), file.name.length).toLocaleLowerCase().trim();
 
@@ -32,7 +33,7 @@ const ModalDBSelect = (page = 'registros') => {
             //   $('#analiseCSV').dialog('open');
             $(this).dialog('close');
           } else {
-            $('#inputCSV').after('<small class="noFieldsError">Arquivo inválido! Selecione um documento no formato "CSV".</small>');
+            $('#inputCSV').after('<small class="small-error">Arquivo inválido! Selecione um documento no formato "CSV".</small>');
           }
         },
       },
@@ -42,7 +43,7 @@ const ModalDBSelect = (page = 'registros') => {
         click: function () {
           $(this).dialog('close');
           $('#dataBase small').remove();
-          // functions.clearInputs();
+          clearInputs();
         }
       },
 
