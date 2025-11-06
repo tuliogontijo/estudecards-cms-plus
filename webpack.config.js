@@ -70,10 +70,11 @@ module.exports = (env, argv) => {
     resolve: {
       alias: {
         '@components': path.resolve(__dirname, 'src/components'),
-        '@fn': path.resolve(__dirname, 'src/functions'),
+        '@core': path.resolve(__dirname, 'src/core'),
         '@styles': path.resolve(__dirname, 'src/styles'),
         '@img': path.resolve(__dirname, 'assets/img'),
         '@utils': path.resolve(__dirname, 'src/utils'),
+        '@constants': path.resolve(__dirname, 'src/constants/index.js'),
         'jquery-ui': 'jquery-ui-dist/jquery-ui.js'
       }
     }

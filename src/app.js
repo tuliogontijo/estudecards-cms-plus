@@ -1,13 +1,14 @@
 import 'jquery';
+import 'jquery-ui-dist/jquery-ui.css';
 import 'jquery-ui-dist/jquery-ui.js';
 
 import '@styles/global.css';
 
-import 'jquery-ui-dist/jquery-ui.css';
+import { pages } from '@constants';
 
-import initUI from '@fn/initUI';
+import initUI from '@core/initUI';
 
-(function () {
+(() => {
   'use strict';
 
   const pathName = document.location.pathname;
@@ -15,18 +16,14 @@ import initUI from '@fn/initUI';
   let inject = true;
 
   if (pathName.includes('disciplina_cards')) {
-    page = 'Cards';
+    page = pages.CARDS;
   } else if (pathName.includes('disciplina_perguntas')) {
-    page = 'Perguntas';
+    page = pages.QUESTIONS;
   } else {
     inject = false;
-
   }
 
   inject && initUI(page);
-
-
-
 
 
 })();

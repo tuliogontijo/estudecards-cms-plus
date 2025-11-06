@@ -27,3 +27,7 @@
 #inputCSV {
   width: calc(100% - 22px);
 }
+
+#rows-quantity {
+  padding: 0px !important;
+}

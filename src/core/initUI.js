@@ -1,13 +1,13 @@
 import ButtonCreateBulk from '@components/buttonCreateBulk';
-import ModalConfirm from '@components/ModalConfirm';
+import ModalCheckCSV from '@components/ModalCheckCSV';
 import ModalDBSelect from '@components/ModalDBSelect';
+
 
 const initUI = (page) => {
 
   ButtonCreateBulk(page);
   ModalDBSelect(page);
-  ModalConfirm(page);
-
+  ModalCheckCSV(page);
 
 
 };
