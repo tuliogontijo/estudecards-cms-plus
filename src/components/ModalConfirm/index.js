@@ -1,16 +1,16 @@
 
-import ModalBase from '../ModalBase';
+import ModalBase from '@components/ModalBase';
 import buttons from './buttons';
 
-const ModalCheckCSV = (page = 'registros') => {
+const ModalConfirm = (page = 'registros') => {
 
   $('body').append(`
-  <div id="check-csv" title="Confirmação">
+  <div id="confirm" title="Confirmação">
     <p>Você tem certeza de que deseja incluir <span id="rows-quantity"></span> ${page}?</p>
   </div>
   `);
 
-  $('#check-csv').dialog({
+  $('#confirm').dialog({
     ...ModalBase,
     buttons: buttons
   });
@@ -18,4 +18,4 @@ const ModalCheckCSV = (page = 'registros') => {
 
 };
 
-export default ModalCheckCSV;
+export default ModalConfirm;

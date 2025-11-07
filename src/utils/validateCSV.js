@@ -8,7 +8,7 @@ const validateCSV = (data, page) => {
   if (page === pages.CARDS) {
     expectedKeys = ['pergunta', 'resposta', 'comentário', 'assunto', 'status'];
   } else if (page === pages.QUESTIONS) {
-    expectedKeys = ['pergunta', 'fonte', 'comentário', 'assunto', 'status']; //somente obrigatórias. Verificar 'Alt01', 'Alt02', 'correta'
+    expectedKeys = ['pergunta', 'fonte', 'comentário', 'assunto', 'status']; //somente obrigatórias. TODO: Verificar 'Alt01', 'Alt02', 'correta'
   }
 
   !data.length && errors.push('A planilha CSV fornecida está vazia.');

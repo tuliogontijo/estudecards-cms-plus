@@ -17,7 +17,7 @@ export const handleClickSend = async (page) => {
       localStorage.setItem('csvData', JSON.stringify(data));
       $('#rows-quantity').text(data.length);
       $('#dataBase').dialog('close');
-      $('#check-csv').dialog('open');
+      $('#confirm').dialog('open');
     } else {
       handleValidationError(errors);
     }

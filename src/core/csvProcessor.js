@@ -23,7 +23,6 @@ const csvProcessor = async (file, page) => {
         resolve({ isValid, errors, data });
       },
       error: error => {
-        console.error('❌ Erro no parsing do CSV:', error);
         reject({
           isValid: false,
           errors: [error.message || 'Erro ao processar CSV'],

@@ -1,15 +1,15 @@
 
 export const handleClickCancel = () => {
-  $('#check-csv').dialog('close');
+  $('#confirm').dialog('close');
 };
 
 export const handleClickYes = () => {
-  $('#check-csv').dialog('close');
-  //chama automação
+  $('#confirm').dialog('close');
+  $('#execution').dialog('open');
 };
 
 export const handleClickBack = () => {
-  $('#check-csv').dialog('close');
+  $('#confirm').dialog('close');
   $('#dataBase').dialog('open');
 };
 
