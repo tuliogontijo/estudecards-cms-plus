@@ -16,6 +16,7 @@ export const handleClickSend = async (page) => {
     if (isValid) {
       localStorage.setItem('csvData', JSON.stringify(data));
       $('#rows-quantity').text(data.length);
+      $('#execution-total').text(data.length);
       $('#dataBase').dialog('close');
       $('#confirm').dialog('open');
     } else {

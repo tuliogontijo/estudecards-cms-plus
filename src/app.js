@@ -11,13 +11,19 @@ import initUI from '@core/initUI';
 (() => {
   'use strict';
 
-  const pathName = document.location.pathname;
+  const pathNameParts = document.location.pathname.split('/');
+  const pageName = pathNameParts[2];
+  const pageId = pathNameParts[4];
+
+  localStorage.setItem('pageId', pageId);
+
   let page;
+
   let inject = true;
 
-  if (pathName.includes('disciplina_cards')) {
+  if (pageName === 'disciplina_cards') {
     page = pages.CARDS;
-  } else if (pathName.includes('disciplina_perguntas')) {
+  } else if (pageName === 'disciplina_perguntas') {
     page = pages.QUESTIONS;
   } else {
     inject = false;

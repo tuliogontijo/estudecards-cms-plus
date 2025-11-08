@@ -12,10 +12,8 @@ const ModalConfirm = (page = 'registros') => {
 
   $('#confirm').dialog({
     ...ModalBase,
-    buttons: buttons
+    buttons: (() => buttons(page))()
   });
-
-
 };
 
 export default ModalConfirm;

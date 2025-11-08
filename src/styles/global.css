@@ -31,3 +31,18 @@
 #rows-quantity {
   padding: 0px !important;
 }
+
+.execution-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    width: 80px;
+  }
+
+  p,span {
+    padding: 0px !important;
+  }
+}

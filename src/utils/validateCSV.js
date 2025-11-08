@@ -13,7 +13,7 @@ const validateCSV = (data, page) => {
 
   !data.length && errors.push('A planilha CSV fornecida está vazia.');
 
-  data.every(row => {
+  data.forEach(row => {
     const objKeys = Object.keys(row).map(key => key.toLowerCase());
 
     const hasAllKeys = expectedKeys.every(expectedKey => objKeys.includes(expectedKey.toLowerCase()));

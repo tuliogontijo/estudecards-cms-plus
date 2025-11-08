@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Política de Privacidade da extensão Estude Cards CMS Plus para Chrome">
+  <title>Política de Privacidade - Estude Cards CMS Plus</title>
+  <style>
+    :root {
+      --primary-color: #007cba;
+      --secondary-color: #0096dd;
+      --text-color: #333;
+      --text-light: #666;
+      --bg-color: #ffffff;
+      --bg-secondary: #f5f7fa;
+      --border-color: #e1e4e8;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-secondary);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-color);
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1.2em;
+      color: var(--text-light);
+      margin-bottom: 5px;
+    }
+
+    .version {
+      font-size: 0.9em;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      color: var(--secondary-color);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    h3 {
+      font-size: 1.2em;
+      color: var(--text-color);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    ul,
+    ol {
+      margin-left: 25px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .info-box {
+      background: var(--bg-secondary);
+      border-left: 4px solid var(--primary-color);
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .info-box.success {
+      border-left-color: var(--success-color);
+      background: #f0f9f4;
+    }
+
+    .info-box.warning {
+      border-left-color: var(--warning-color);
+      background: #fff9e6;
+    }
+
+    .info-box.danger {
+      border-left-color: var(--danger-color);
+      background: #fef2f2;
+    }
+
+    .check-list {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .check-list li::before {
+      content: "✓ ";
+      color: var(--success-color);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .cross-list {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .cross-list li::before {
+      content: "✗ ";
+      color: var(--danger-color);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .permission-card {
+      background: var(--bg-secondary);
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .permission-card h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    code {
+      background: #f6f8fa;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #e83e8c;
+      font-size: 0.9em;
+    }
+
+    .contact {
+      background: var(--bg-secondary);
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .contact a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      h2 {
+        font-size: 1.3em;
+      }
+    }
+
+    .toc {
+      background: var(--bg-secondary);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .toc h2 {
+      margin-top: 0;
+      border-bottom: none;
+    }
+
+    .toc ul {
+      margin-left: 20px;
+    }
+
+    .toc a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">📚 Estude Cards CMS Plus</div>
+      <div class="subtitle">Extensão para Chrome</div>
+      <div class="version">Versão 1.0.0</div>
+    </header>
+
+    <h1>Política de Privacidade</h1>
+
+    <div class="info-box">
+      <p><strong>Última atualização:</strong> 08 de novembro de 2025</p>
+      <p><strong>Desenvolvedor:</strong> Tulio Cesar Gontijo</p>
+      <p><strong>Contato:</strong> <a href="mailto:gontify@gontify.com.br">gontify@gontify.com.br</a></p>
+    </div>
+
+    <div class="toc">
+      <h2>Índice</h2>
+      <ul>
+        <li><a href="#introducao">1. Introdução</a></li>
+        <li><a href="#coleta">2. Informações que Coletamos</a></li>
+        <li><a href="#uso">3. Como Usamos suas Informações</a></li>
+        <li><a href="#permissoes">4. Permissões Solicitadas</a></li>
+        <li><a href="#compartilhamento">5. Compartilhamento de Dados</a></li>
+        <li><a href="#seguranca">6. Segurança</a></li>
+        <li><a href="#direitos">7. Seus Direitos</a></li>
+        <li><a href="#contato">8. Contato</a></li>
+      </ul>
+    </div>
+
+    <section id="introducao">
+      <h2>1. Introdução</h2>
+      <p>
+        O <strong>Estude Cards CMS Plus</strong> é uma extensão para navegador Chrome desenvolvida para
+        automatizar a criação em lote de cards educacionais no sistema CMS da plataforma EstudeCards
+        (https://estudecards.com.br).
+      </p>
+      <p>
+        Esta Política de Privacidade explica quais informações coletamos, como as usamos, e seus direitos
+        em relação aos seus dados. Ao utilizar esta extensão, você concorda com as práticas descritas neste documento.
+      </p>
+    </section>
+
+    <section id="coleta">
+      <h2>2. Informações que Coletamos</h2>
+
+      <h3>2.1. Dados Fornecidos Diretamente por Você</h3>
+      <ul>
+        <li><strong>Arquivos CSV:</strong> Quando você importa um arquivo CSV para criação em lote, processamos
+          os dados localmente no seu navegador. Estes dados incluem títulos de cards, conteúdos, categorias
+          e outras informações que você incluir no arquivo.</li>
+        <li><strong>Configurações da Extensão:</strong> Preferências como delay entre registros, mapeamento
+          de campos e outras configurações personalizadas.</li>
+      </ul>
+
+      <h3>2.2. Dados Coletados Automaticamente</h3>
+      <div class="info-box success">
+        <p><strong>Transparência Total:</strong></p>
+        <ul class="check-list">
+          <li>ID da disciplina atual (extraído da URL do CMS)</li>
+          <li>Metadados de processamento (quantidade de registros, data/hora)</li>
+          <li>Status de progresso das importações</li>
+        </ul>
+      </div>
+
+      <h3>2.3. Dados que NÃO Coletamos</h3>
+      <div class="info-box danger">
+        <ul class="cross-list">
+          <li>Histórico de navegação</li>
+          <li>Dados pessoais sensíveis (CPF, RG, dados bancários)</li>
+          <li>Senhas ou credenciais de login</li>
+          <li>Dados de outros sites ou abas do navegador</li>
+          <li>Informações de identificação pessoal além do contexto do CMS</li>
+          <li>Cookies de terceiros</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="uso">
+      <h2>3. Como Usamos suas Informações</h2>
+
+      <p>As informações coletadas são utilizadas exclusivamente para:</p>
+
+      <ol>
+        <li><strong>Funcionalidade Principal:</strong>
+          <ul>
+            <li>Processar arquivos CSV e criar cards automaticamente no CMS</li>
+            <li>Validar dados antes da importação</li>
+            <li>Exibir progresso em tempo real</li>
+          </ul>
+        </li>
+
+        <li><strong>Melhoria da Experiência:</strong>
+          <ul>
+            <li>Salvar suas preferências de configuração</li>
+            <li>Manter histórico de importações recentes</li>
+            <li>Permitir retry em caso de falhas</li>
+          </ul>
+        </li>
+
+        <li><strong>Operação Técnica:</strong>
+          <ul>
+            <li>Identificar contexto atual (disciplina, tema)</li>
+            <li>Comunicar-se com APIs internas do EstudeCards</li>
+            <li>Automatizar preenchimento de formulários</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="info-box success">
+        <p><strong>⚠️ Importante:</strong> Todos os dados são processados <strong>localmente no seu navegador</strong>.
+          A extensão <strong>NÃO envia</strong> informações para servidores externos ou terceiros.</p>
+      </div>
+    </section>
+
+    <section id="permissoes">
+      <h2>4. Permissões Solicitadas</h2>
+
+      <p>Para funcionar corretamente, a extensão solicita as seguintes permissões:</p>
+
+      <div class="permission-card">
+        <h3>🌐 host_permissions: <code>https://estudecards.com.br/*</code></h3>
+        <p><strong>Por que precisamos:</strong></p>
+        <ul>
+          <li>Injetar interface de importação em lote no CMS</li>
+          <li>Ler dados da página para identificar contexto (disciplina, temas)</li>
+          <li>Fazer requisições às APIs internas do EstudeCards</li>
+          <li>Automatizar preenchimento de formulários de criação de cards</li>
+          <li>Monitorar status de criação e exibir feedback</li>
+        </ul>
+        <p><strong>Escopo:</strong> Acesso <strong>exclusivo</strong> ao domínio estudecards.com.br.
+          Não acessa outros sites.</p>
+      </div>
+
+      <div class="permission-card">
+        <h3>💾 permissions: <code>storage</code></h3>
+        <p><strong>Por que precisamos:</strong></p>
+        <ul>
+          <li>Salvar dados do CSV temporariamente durante processamento</li>
+          <li>Armazenar suas preferências e configurações</li>
+          <li>Manter histórico de importações para retry</li>
+          <li>Preservar estado em caso de interrupção</li>
+        </ul>
+        <p><strong>Limite:</strong> Máximo de ~5MB (limite do Chrome). Uso típico: &lt;1MB por sessão.</p>
+        <p><strong>Duração:</strong> Dados temporários são removidos automaticamente após processamento.</p>
+      </div>
+    </section>
+
+    <section id="compartilhamento">
+      <h2>5. Compartilhamento de Dados</h2>
+
+      <div class="info-box success">
+        <p><strong>✓ GARANTIA DE PRIVACIDADE</strong></p>
+        <p>A extensão <strong>NÃO compartilha</strong> seus dados com terceiros de forma alguma.</p>
+      </div>
+
+      <h3>O que fazemos:</h3>
+      <ul class="check-list">
+        <li>Processamos todos os dados localmente no seu navegador</li>
+        <li>Comunicamos apenas com APIs internas do EstudeCards (necessário para funcionalidade)</li>
+        <li>Armazenamos dados apenas no storage local do Chrome</li>
+      </ul>
+
+      <h3>O que NÃO fazemos:</h3>
+      <ul class="cross-list">
+        <li>Enviar dados para servidores externos</li>
+        <li>Compartilhar informações com terceiros</li>
+        <li>Vender ou comercializar seus dados</li>
+        <li>Rastrear seu comportamento online</li>
+        <li>Usar dados para publicidade</li>
+      </ul>
+    </section>
+
+    <section id="seguranca">
+      <h2>6. Segurança</h2>
+
+      <p>Implementamos diversas medidas de segurança para proteger seus dados:</p>
+
+      <h3>6.1. Validação de Dados</h3>
+      <ul>
+        <li>Validação de estrutura do CSV antes do processamento</li>
+        <li>Sanitização de inputs para prevenir XSS</li>
+        <li>Verificação de tipos e limites de dados</li>
+      </ul>
+
+      <h3>6.2. Processamento Local</h3>
+      <ul>
+        <li>Todo processamento ocorre no navegador</li>
+        <li>Dados não trafegam para servidores externos</li>
+        <li>Nenhum rastreamento ou analytics de terceiros</li>
+      </ul>
+
+      <h3>6.3. Armazenamento Seguro</h3>
+      <ul>
+        <li>Uso do Chrome Storage API (isolado por extensão)</li>
+        <li>Dados criptografados pelo próprio Chrome</li>
+        <li>Limpeza automática de dados temporários</li>
+      </ul>
+
+      <h3>6.4. Rate Limiting</h3>
+      <ul>
+        <li>Delay configurável entre requisições (padrão: 1500ms)</li>
+        <li>Previne sobrecarga do servidor</li>
+        <li>Respeita limites da plataforma EstudeCards</li>
+      </ul>
+    </section>
+
+    <section id="direitos">
+      <h2>7. Seus Direitos (LGPD)</h2>
+
+      <p>Em conformidade com a Lei Geral de Proteção de Dados (LGPD), você tem os seguintes direitos:</p>
+
+      <h3>7.1. Acesso aos Dados</h3>
+      <p>Você pode visualizar todos os dados armazenados pela extensão através de:</p>
+      <ul>
+        <li>Chrome DevTools → Application → Storage → Local Storage</li>
+        <li>Buscar por chaves com prefixo: <code>bulk_extension_</code></li>
+      </ul>
+
+      <h3>7.2. Exclusão de Dados</h3>
+      <p>Você pode excluir seus dados das seguintes formas:</p>
+      <ul>
+        <li><strong>Desinstalar a extensão:</strong> Remove automaticamente todos os dados armazenados</li>
+        <li><strong>Limpar storage manualmente:</strong> Chrome DevTools → Application → Clear Storage</li>
+        <li><strong>Botão de limpeza:</strong> [Adicionar botão na interface da extensão]</li>
+      </ul>
+
+      <h3>7.3. Portabilidade</h3>
+      <p>Todos os dados são armazenados em formato JSON legível. Você pode exportar seus dados a qualquer momento.</p>
+
+      <h3>7.4. Revogação de Consentimento</h3>
+      <p>Você pode revogar o consentimento a qualquer momento desinstalando a extensão. Todos os dados serão
+        automaticamente removidos.</p>
+    </section>
+
+    <section id="contato">
+      <h2>8. Contato</h2>
+
+      <div class="contact">
+        <p><strong>Dúvidas sobre privacidade ou funcionamento da extensão?</strong></p>
+        <p>Entre em contato conosco:</p>
+        <p>
+          📧 Email: <a href="mailto:gontify@gontify.com.br">gontify@gontify.com.br</a><br>
+          🐙 GitHub: <a href="https://github.com/seu-usuario/estude-cards-cms-plus"
+            target="_blank">github.com/seu-usuario/estude-cards-cms-plus</a><br>
+          📝 Issues: <a href="https://github.com/seu-usuario/estude-cards-cms-plus/issues" target="_blank">Reportar
+            Problema</a>
+        </p>
+        <p><strong>Tempo de resposta:</strong> Até 48 horas</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>9. Alterações nesta Política</h2>
+      <p>
+        Podemos atualizar esta Política de Privacidade ocasionalmente. Quando fizermos alterações significativas,
+        notificaremos através de:
+      </p>
+      <ul>
+        <li>Atualização da data de "Última atualização" no topo desta página</li>
+        <li>Notificação na própria extensão (se aplicável)</li>
+        <li>Comunicado no repositório GitHub</li>
+      </ul>
+      <p>
+        Recomendamos revisar esta política periodicamente para se manter informado sobre como protegemos
+        suas informações.
+      </p>
+    </section>
+
+    <section>
+      <h2>10. Conformidade Legal</h2>
+      <p>Esta extensão está em conformidade com:</p>
+      <ul class="check-list">
+        <li><strong>LGPD</strong> (Lei Geral de Proteção de Dados - Lei nº 13.709/2018)</li>
+        <li><strong>Políticas do Chrome Web Store</strong></li>
+        <li><strong>Termos de Uso da plataforma EstudeCards</strong></li>
+        <li><strong>Boas práticas de desenvolvimento seguro</strong></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Estude Cards CMS Plus. Todos os direitos reservados.</p>
+      <p>Esta extensão não é oficialmente afiliada ao EstudeCards.</p>
+      <p><strong>Versão da Política:</strong> 1.0.0 | <strong>Última atualização:</strong> 08/11/2025</p>
+    </footer>
+  </div>
+</body>
+
+</html>

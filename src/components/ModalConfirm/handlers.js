@@ -1,11 +1,13 @@
+import automationEngine from '@core/automationEngine';
 
 export const handleClickCancel = () => {
   $('#confirm').dialog('close');
 };
 
-export const handleClickYes = () => {
+export const handleClickYes = (page) => {
   $('#confirm').dialog('close');
   $('#execution').dialog('open');
+  automationEngine(page);
 };
 
 export const handleClickBack = () => {

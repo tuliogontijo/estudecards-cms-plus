@@ -1,11 +1,11 @@
 import { handleClickBack, handleClickCancel, handleClickYes } from './handlers';
 
-const buttons = [
+const buttons = page => [
   {
     id: 'btnConfirm',
     text: 'Sim',
     prepend: '<span class=\'ui-icon ui-icon-circle-check\'></span>',
-    click: handleClickYes,
+    click: () => handleClickYes(page),
   },
   {
     text: 'Cancelar',
