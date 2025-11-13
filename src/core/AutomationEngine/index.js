@@ -13,7 +13,7 @@ const automationEngine = async (page) => {
   const status = getStatus();
 
   if (page === pages.CARDS) {
-    csvData.forEach(async (row, i) => {
+    for (const [i, row] of csvData.entries()) {
       const subjectId = subjects.find(subject => subject.subjectName === row.assunto).subjectId;
       const statusId = status.find(status => status.statusName === row.status).statusId;
 
@@ -23,12 +23,28 @@ const automationEngine = async (page) => {
         handleSetCurrentExecution(i + 1);
       } else {
         console.log(error);
+        break;
       }
-    });
+    }
+    // csvData.every(async (row, i) => {
+    //   const subjectId = subjects.find(subject => subject.subjectName === row.assunto).subjectId;
+    //   const statusId = status.find(status => status.statusName === row.status).statusId;
+
+    //   const { success, error } = await createCard(subjectId, statusId, disciplineId, row);
+
+    //   if (success) {
+    //     handleSetCurrentExecution(i + 1);
+    //     return true;
+    //   } else {
+    //     console.log(error);
+    //     return false;
+    //   }
+    // });
 
     handleSetSuccessfulExecutionText();
 
-    setTimeout(() => window.location.reload(),2000);
+    setTimeout(() => window.location.reload(), 2000);
+
 
   };
 };

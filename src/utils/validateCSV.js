@@ -27,7 +27,7 @@ const validateCSV = (data, page) => {
   if (errors.length) {
     return {
       isValid: false,
-      errors
+      errors: Array.from(new Set(errors))
     };
   }
 

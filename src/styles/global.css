@@ -46,3 +46,15 @@
     padding: 0px !important;
   }
 }
+
+#execution-success {
+  display: none;
+  text-align: center;
+
+  img {
+    width: 70px;
+    padding: 0px !important;
+    display: block;
+    margin: auto;
+  }
+}
