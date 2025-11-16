@@ -1,3 +1,5 @@
+import { handleCallErrorModal } from '@components/ModalError/handlers';
+
 const getSubjects = async (disciplineId) => {
 
   const subjects = [];
@@ -25,7 +27,8 @@ const getSubjects = async (disciplineId) => {
       throw new Error('Nenhum assunto encontrado.');
     }
   } catch (error) {
-    console.log(error);
+    console.err(error);
+    handleCallErrorModal();
   }
 
 };

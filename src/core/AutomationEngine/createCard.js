@@ -1,7 +1,11 @@
+import formatter from '@utils/formatter';
+
 const createCard = async (subjectId, statusId, disciplineId, data) => {
 
+  const formattedData = formatter(subjectId, statusId, data);
+
   const formData = new FormData();
-  formData.append('form', `<p>${data.pergunta}</p><gz><p>${data.resposta}</p><gz><p>${data.comentário}</p><gz>${subjectId}<gz>${statusId}<gz>null`);
+  formData.append('form', formattedData);
   formData.append('base', disciplineId);
 
   try {
@@ -10,9 +14,9 @@ const createCard = async (subjectId, statusId, disciplineId, data) => {
       body: formData,
       credentials: 'same-origin'
     });
-    // const response = { ok: true };
+    //const response = { ok: true };
     if (response.ok) {
-      // console.log('card created', data.pergunta);
+      //console.log('card created', data.pergunta);
       return {
         success: true,
       };
