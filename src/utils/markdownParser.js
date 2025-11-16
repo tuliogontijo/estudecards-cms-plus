@@ -1,134 +1,166 @@
+/**
+ * @file MarkdownParser.js
+ * Parser baseado em marked.js com extensões customizadas
+ */
+
+import { marked } from 'marked';
+
+/**
+ * Configuração do Parser Markdown com extensões customizadas
+ */
 class MarkdownParser {
   constructor() {
-    // Define a ordem de prioridade dos tokens (do mais específico ao mais geral)
-    this.inlineRules = [
-      // Grifos coloridos (mais específico)
-      {
-        name: 'highlight',
-        pattern: /^==(\w+)\[([^\]]+)\]==/,
-        render: (match, parser) => {
-          const colors = {
-            amarelo: 'yellow',
-            azul: 'lightblue',
-            cinza: 'lightgray',
-            vermelho: '#ffcccb',
-            roxo: '#e6ccff'
-          };
-          const color = colors[match[1]] || 'yellow';
-          const content = parser.parseInline(match[2]); // Recursivo!
-          return `<mark style="background-color: ${color};">${content}</mark>`;
-        }
-      },
-      // Negrito + Itálico: ***texto***
-      {
-        name: 'boldItalic',
-        pattern: /^\*\*\*([^*]+)\*\*\*/,
-        render: (match, parser) => {
-          const content = parser.parseInline(match[1]);
-          return `<strong><em>${content}</em></strong>`;
-        }
-      },
-      // Negrito: **texto**
-      {
-        name: 'bold',
-        pattern: /^\*\*([^*]+)\*\*/,
-        render: (match, parser) => {
-          const content = parser.parseInline(match[1]);
-          return `<strong>${content}</strong>`;
-        }
-      },
-      // Itálico: *texto*
-      {
-        name: 'italic',
-        pattern: /^\*([^*]+)\*/,
-        render: (match, parser) => {
-          const content = parser.parseInline(match[1]);
-          return `<em>${content}</em>`;
-        }
-      },
-      // Sublinhado: ~~texto~~
-      {
-        name: 'underline',
-        pattern: /^~~(.+?)~~/,
-        render: (match, parser) => {
-          const content = parser.parseInline(match[1]);
-          return `<u>${content}</u>`;
-        }
-      }
-    ];
-
-    this.blockRules = [
-      // Justificar: {justify}texto{/justify}
-      {
-        name: 'justify',
-        pattern: /^\{justify\}(.*?)\{\/justify\}/s,
-        render: (match, parser) => {
-          const content = parser.parseInline(match[1]);
-          return `<div style="text-align: justify;">${content}</div>`;
-        }
-      }
-    ];
+    // Configura as extensões customizadas
+    this.setupExtensions();
   }
 
   /**
-   * Parse inline (recursivo) - suporta aninhamento
+   * Configura extensões customizadas para marked.js
    */
-  parseInline(text) {
-    if (!text) return '';
+  setupExtensions() {
+    marked.use({
+      extensions: [
+        // Extensão para sublinhado: __texto__
+        {
+          name: 'underline',
+          level: 'inline',
+          start(src) {
+            return src.indexOf('__');
+          },
+          tokenizer(src) {
+            const rule = /^__((?:(?!__).)+)__/;
+            const match = rule.exec(src);
 
-    let result = '';
-    let remaining = text;
+            if (match) {
+              return {
+                type: 'underline',
+                raw: match[0],
+                text: match[1],
+                tokens: this.lexer.inlineTokens(match[1]) // Suporta aninhamento!
+              };
+            }
+          },
+          renderer(token) {
+            // Parse recursivo dos tokens internos
+            const text = this.parser.parseInline(token.tokens);
+            return `<u>${text}</u>`;
+          }
+        },
 
-    while (remaining.length > 0) {
-      let matched = false;
+        // Extensão para grifos coloridos: ==cor[texto]==
+        {
+          name: 'highlight',
+          level: 'inline',
+          start(src) {
+            return src.indexOf('==');
+          },
+          tokenizer(src) {
+            const rule = /^==([a-z]+)\[([^\]]+)\]==/;
+            const match = rule.exec(src);
 
-      // Tenta cada regra inline na ordem de prioridade
-      for (const rule of this.inlineRules) {
-        const match = remaining.match(rule.pattern);
+            if (match) {
+              return {
+                type: 'highlight',
+                raw: match[0],
+                color: match[1],
+                text: match[2],
+                tokens: this.lexer.inlineTokens(match[2]) // Suporta aninhamento!
+              };
+            }
+          },
+          renderer(token) {
+            // Mapeia cores nomeadas do HTML
+            const htmlColors = {
+              // Cores básicas
+              amarelo: 'yellow',
+              azul: 'blue',
+              cinza: 'gray',
+              vermelho: 'red',
+              roxo: 'purple',
+              verde: 'green',
+              laranja: 'orange',
+              rosa: 'pink',
+              marrom: 'brown',
+              preto: 'black',
+              branco: 'white',
 
-        if (match && match.index === 0) {
-          // Renderiza o token (pode ser recursivo)
-          result += rule.render(match, this);
-          remaining = remaining.slice(match[0].length);
-          matched = true;
-          break;
+              // Cores adicionais comuns
+              aqua: 'aqua',
+              ciano: 'cyan',
+              magenta: 'magenta',
+              lima: 'lime',
+              oliva: 'olive',
+              navy: 'navy',
+              teal: 'teal',
+              prata: 'silver',
+              dourado: 'gold',
+
+              // Tons claros e escuros
+              azulclaro: 'lightblue',
+              vermelhoescuro: 'darkred',
+              verdeescuro: 'darkgreen',
+              azulescuro: 'darkblue',
+              cinzaclaro: 'lightgray',
+              cinzaescuro: 'darkgray'
+            };
+
+            const bgColor = htmlColors[token.color] || token.color;
+
+            // Parse recursivo dos tokens internos
+            const text = this.parser.parseInline(token.tokens);
+
+            return `<mark style="background-color: ${bgColor};">${text}</mark>`;
+          }
+        },
+
+        // Extensão para texto justificado: {justify}texto{/justify}
+        {
+          name: 'justify',
+          level: 'block',
+          start(src) {
+            return src.indexOf('{justify}');
+          },
+          tokenizer(src) {
+            const rule = /^\{justify\}([\s\S]*?)\{\/justify\}/;
+            const match = rule.exec(src);
+
+            if (match) {
+              return {
+                type: 'justify',
+                raw: match[0],
+                text: match[1].trim(),
+                tokens: this.lexer.blockTokens(match[1].trim()) // Suporta blocos internos
+              };
+            }
+          },
+          renderer(token) {
+            // Parse recursivo dos tokens internos
+            const text = this.parser.parse(token.tokens);
+            return `<div style="text-align: justify;">${text}</div>\n`;
+          }
         }
-      }
-
-      // Se não encontrou nenhuma marcação, adiciona o próximo caractere
-      if (!matched) {
-        result += remaining[0];
-        remaining = remaining.slice(1);
-      }
-    }
-
-    return result;
-  }
-
-  /**
-   * Parse de blocos (top-level)
-   */
-  parseBlock(text) {
-    if (!text) return '';
-
-    let result = text;
-
-    // Processa regras de bloco
-    for (const rule of this.blockRules) {
-      result = result.replace(rule.pattern, (match, ...groups) => {
-        return rule.render([match, ...groups], this);
-      });
-    }
-
-    // Processa inline dentro de cada bloco
-    return this.parseInline(result);
+      ]
+    });
   }
 
   /**
    * Método principal de parse
+   * @param {string} text - Texto em Markdown
+   * @returns {string} HTML renderizado
    */
   parse(text) {
-    return this.parseBlock(text);
+    if (!text) return '';
+    return marked.parse(text);
+  }
+
+  /**
+   * Parse inline (útil para processar apenas inline tokens)
+   * @param {string} text - Texto em Markdown
+   * @returns {string} HTML renderizado
+   */
+  parseInline(text) {
+    if (!text) return '';
+    return marked.parseInline(text);
   }
 }
 
