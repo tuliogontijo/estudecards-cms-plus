@@ -26,10 +26,14 @@ module.exports = (env, argv) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
-          test: /\.(png|jpe?g|gif|svg|ico)$/i,
+          test: /\.(png|jpe?g|gif|ico)$/i,
           type: 'asset',
           parser: { dataUrlCondition: { maxSize: 8 * 1024 } },
           generator: { filename: 'img/[name].[hash][ext]' }
+        },
+        {
+          test: /\.svg$/,
+          loader: 'svg-inline-loader'
         }
       ],
     },

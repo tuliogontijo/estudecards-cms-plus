@@ -1,4 +1,4 @@
-import success from '@img/success.svg';
+import svgSuccess from '@img/success.svg';
 
 export const handleClickCancel = () => {
   $('#execution').dialog('close');
@@ -12,5 +12,5 @@ export const handleSetSuccessfulExecutionText = () => {
   $('#execution-ongoing').hide();
   $('#execution').siblings('.ui-dialog-buttonpane').eq(0).hide();
   $('#execution-success').show();
-  $('#execution-success-text').prepend(`<img src="${success}" alt="Sucesso!" />`);
+  $('#execution-success-text').prepend(svgSuccess);
 };

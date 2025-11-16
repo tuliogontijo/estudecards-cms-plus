@@ -2,6 +2,7 @@ import createCard from './createCard';
 import getStatus from './getStatus';
 import getSubjects from './getSubjects';
 
+import { handleCallErrorModal } from '@components/ModalError/handlers';
 import { handleSetCurrentExecution, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
 
 import { pages } from '@constants';
@@ -22,29 +23,15 @@ const automationEngine = async (page) => {
       if (success) {
         handleSetCurrentExecution(i + 1);
       } else {
-        console.log(error);
+        console.err(error);
+        handleCallErrorModal();
         break;
       }
     }
-    // csvData.every(async (row, i) => {
-    //   const subjectId = subjects.find(subject => subject.subjectName === row.assunto).subjectId;
-    //   const statusId = status.find(status => status.statusName === row.status).statusId;
-
-    //   const { success, error } = await createCard(subjectId, statusId, disciplineId, row);
-
-    //   if (success) {
-    //     handleSetCurrentExecution(i + 1);
-    //     return true;
-    //   } else {
-    //     console.log(error);
-    //     return false;
-    //   }
-    // });
 
     handleSetSuccessfulExecutionText();
 
     setTimeout(() => window.location.reload(), 2000);
-
 
   };
 };

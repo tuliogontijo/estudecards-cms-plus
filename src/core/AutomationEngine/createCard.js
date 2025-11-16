@@ -10,9 +10,9 @@ const createCard = async (subjectId, statusId, disciplineId, data) => {
       body: formData,
       credentials: 'same-origin'
     });
-    //const response = { ok: true };
+    // const response = { ok: true };
     if (response.ok) {
-      console.log('card created', data.pergunta);
+      // console.log('card created', data.pergunta);
       return {
         success: true,
       };

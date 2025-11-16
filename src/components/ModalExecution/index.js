@@ -12,7 +12,7 @@ const ModalExecution = (page = 'registros') => {
     <div id="execution-ongoing">
       <p>Por favor, aguarde..</p>
       <div class="execution-container">
-       <img src="${loading}" alt="Executando..." />
+      ${loading}
        <p><span id="execution-current">0</span> de <span id="execution-total"></span></p>
        <p>${page} foram processad${page === pages.CARDS ? 'o' : 'a'}s.</p>
       </div>
