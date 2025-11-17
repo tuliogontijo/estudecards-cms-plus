@@ -8,7 +8,7 @@ const validateCSV = (data, page) => {
   if (page === pages.CARDS) {
     expectedKeys = ['pergunta', 'resposta', 'comentário', 'assunto', 'status'];
   } else if (page === pages.QUESTIONS) {
-    expectedKeys = ['pergunta', 'fonte', 'comentário', 'assunto', 'status']; //somente obrigatórias. TODO: Verificar 'Alt01', 'Alt02', 'correta'
+    expectedKeys = ['pergunta', 'fonte', 'comentário', 'assunto', 'status', 'res1', 'res2', 'res3', 'res4', 'res5', 'res6', 'correta']; //somente obrigatórias. TODO: Verificar 'Alt01', 'Alt02', 'correta'
   }
 
   !data.length && errors.push('A planilha CSV fornecida está vazia.');
@@ -16,11 +16,27 @@ const validateCSV = (data, page) => {
   data.forEach(row => {
     const objKeys = Object.keys(row).map(key => key.toLowerCase());
 
-    const hasAllKeys = expectedKeys.every(expectedKey => objKeys.includes(expectedKey.toLowerCase()));
-    !hasAllKeys && errors.push(`A planilha CSV fornecida não possui todas as colunas esperadas. São elas: ${expectedKeys.join(', ')}`);
+    const misingKeys = [];
+    const hasAllKeys = expectedKeys.every(expectedKey => {
+      if (objKeys.includes(expectedKey.toLowerCase())) {
+        return true;
+      } else {
+        misingKeys.push(expectedKey);
+      }
+    });
 
-    const noExtraKeys = objKeys.every(objKey => expectedKeys.map(k => k.toLowerCase()).includes(objKey));
-    !noExtraKeys && errors.push(`A planilha CSV fornecida possui colunas não esperadas. Somente são permitidas estas: ${expectedKeys.join(', ')}`);
+    !hasAllKeys && errors.push(`A planilha CSV fornecida não possui todas as colunas esperadas. Faltam as seguintes colunas: ${misingKeys.join(', ')}`);
+
+    const extraKeys = [];
+    const noExtraKeys = objKeys.every(objKey => {
+      if(expectedKeys.map(k => k.toLowerCase()).includes(objKey)){
+        return true;
+      } else {
+        extraKeys.push(objKey);
+      }
+    });
+
+    !noExtraKeys && errors.push(`A planilha CSV fornecida possui colunas não esperadas. As seguintes colunas não são permitidas: ${extraKeys.join(', ')}`);
 
   });
 

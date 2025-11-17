@@ -16,8 +16,8 @@ const getSubjects = async (disciplineId) => {
 
     const subjectPage = await response.text();
     $(subjectPage).find('tr[id]').each((i, el) => {
-      const subjectId = $(el).find('td').eq(0).text();
-      const subjectName = $(el).find('td').eq(1).text();
+      const subjectId = $(el).find('td').eq(0).text().toLowerCase();
+      const subjectName = $(el).find('td').eq(1).text().toLowerCase();
       subjects.push({ subjectId, subjectName });
     });
 

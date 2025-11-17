@@ -14,6 +14,7 @@ import initUI from '@core/initUI';
   const pathNameParts = document.location.pathname.split('/');
   const pageName = pathNameParts[2];
   const pageId = pathNameParts[4];
+  const pageType = pathNameParts[5];
 
   localStorage.setItem('pageId', pageId);
 
@@ -21,7 +22,9 @@ import initUI from '@core/initUI';
 
   let inject = true;
 
-  if (pageName === 'disciplina_cards') {
+  if ((pageType === 'update' || pageType === 'create') && pageName === 'disciplina_cards') {
+    page = pages.EDIT;
+  } else if (pageName === 'disciplina_cards') {
     page = pages.CARDS;
   } else if (pageName === 'disciplina_perguntas') {
     page = pages.QUESTIONS;

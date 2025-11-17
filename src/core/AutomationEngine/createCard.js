@@ -1,8 +1,8 @@
-import formatter from '@utils/formatter';
+import cardFormatter from '@utils/cardFormatter';
 
 const createCard = async (subjectId, statusId, disciplineId, data) => {
 
-  const formattedData = formatter(subjectId, statusId, data);
+  const formattedData = cardFormatter(subjectId, statusId, data);
 
   const formData = new FormData();
   formData.append('form', formattedData);
