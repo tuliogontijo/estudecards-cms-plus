@@ -13,7 +13,7 @@ const ButtonCreateBulk = (page = 'registros') => {
     `);
 
   //$('#button-create-bulk').on('click', () => $('#dataBase').dialog('open'));
-  $('#button-create-bulk').on('click', () => $('#dataBase').dialog('open'));
+  $('#button-create-bulk').on('click', () => $('#error').dialog('open'));
 
 };
 

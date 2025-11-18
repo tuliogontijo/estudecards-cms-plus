@@ -3,10 +3,13 @@ import createQuestion from './createQuestion';
 import getStatus from './getStatus';
 import getSubjects from './getSubjects';
 
+import { pages } from '@constants';
+
 import { handleCallErrorModal } from '@components/ModalError/handlers';
 import { handleSetCurrentExecution, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
 
-import { pages } from '@constants';
+import delay from '@utils/delay';
+
 
 const automationEngine = async (page) => {
   const csvData = JSON.parse(localStorage.getItem('csvData')).map(row => Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value?.toString() || ''])));
@@ -23,15 +26,18 @@ const automationEngine = async (page) => {
     if (success) {
       handleSetCurrentExecution(i + 1);
     } else {
-      console.err(error);
-      handleCallErrorModal();
+      handleCallErrorModal(error);
       break;
     }
   }
 
+  await delay(1000);
   handleSetSuccessfulExecutionText();
 
-  setTimeout(() => window.location.reload(), 2000);
+  await delay(2000);
+  window.location.reload();
 };
+
+
 
 export default automationEngine;

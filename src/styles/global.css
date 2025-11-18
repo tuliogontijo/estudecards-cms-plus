@@ -37,6 +37,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  text-align: center;
+  padding: 0px !important;
 
   p,span {
     padding: 0px !important;
@@ -50,11 +52,19 @@
 
 .iconModal {
     width: 70px;
-    padding: 0px !important;
+    padding: 0px 0px 10px 0px !important;
     display: block;
     margin: auto;
 }
 
 div#error p{
   text-align: center;
+}
+
+#error-description {
+  width: calc(100% - 24px);
+  border: 1px solid black;
+  resize: none;
+  height: 80px;
+  color: red;
 }

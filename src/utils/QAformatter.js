@@ -6,7 +6,7 @@ const QAformatter = (subjectId, statusId, data) => {
 
   const perguntaHtml = parser.parse(data.pergunta || '');
   const fonteHtml = parser.parse(data.fonte || '');
-  const comentarioHtml = parser.parse(data.comentário || '');
+  const comentarioHtml = parser.parse(data.comentario || '');
 
   const questionFormattedData = `${perguntaHtml}<gz>${fonteHtml}<gz>${comentarioHtml}<gz>${subjectId}<gz>${statusId}`;
 

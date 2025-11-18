@@ -14,3 +14,9 @@ export const handleSetSuccessfulExecutionText = () => {
   $('#execution-success').show();
   $('#execution-success-text').prepend(svgSuccess);
 };
+
+export const handleOpen = (loadingSVG) => {
+  //$('#execution .execution-container').find('svg').remove();
+  $('#loader').html('');
+  $('#loader').html(loadingSVG);
+};

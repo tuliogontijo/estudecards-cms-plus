@@ -19,7 +19,6 @@ const csvProcessor = async (file, page) => {
       complete: results => {
         const { data } = results;
         const { isValid, errors } = validateCSV(data, page);
-
         resolve({ isValid, errors, data });
       },
       error: error => {

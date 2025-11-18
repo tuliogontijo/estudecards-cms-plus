@@ -27,8 +27,7 @@ const getSubjects = async (disciplineId) => {
       throw new Error('Nenhum assunto encontrado.');
     }
   } catch (error) {
-    console.err(error);
-    handleCallErrorModal();
+    handleCallErrorModal(error.message);
   }
 
 };

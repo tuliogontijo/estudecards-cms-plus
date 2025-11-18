@@ -6,6 +6,7 @@ const ModalBase = {
   width: 400,
   modal: true,
   show: 300,
+  maxHeight: 400,
   close: () => {
     clearInputs();
   }

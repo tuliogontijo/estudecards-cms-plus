@@ -3,8 +3,9 @@ export const handleOpen = () => {
   errorImg.replaceWith(errorImg.clone());
 };
 
-export const handleCallErrorModal = () => {
+export const handleCallErrorModal = (errorMessage) => {
   $('#error').dialog('open');
+  $('#error-description').text(errorMessage);
 };
 
 export const handleClickCloseBtn = () => {
