@@ -1,0 +1,4 @@
+﻿Pergunta;Fonte;Comentário;Assuntos;Status;res1;res2;res3;res4;res5;res6;certa
+Qual o ano corrente?;Calendário;Pergunta sobre o ano corrente;Geral;Ativo;2015;2010;2023;2025;2019;2016;4
+Que **dia** é hoje?;Calendário;Esta pergunta diz respeito a qual dia é hoje;Geral;Ativo;Segunda;Terça;Quarta;Quinta;Sexta;Sábado;1
+Certo ==amarelo[ou]== errado?;Minha cabeça;Comentário sobre o certo e o ~~errado~~;Geral;Ativo;==verde[Certo!]==;==vermelho[Errado]==;;;;;2
