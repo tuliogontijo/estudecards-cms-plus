@@ -12,8 +12,7 @@ const ButtonCreateBulk = (page = 'registros') => {
 			</div>
     `);
 
-  //$('#button-create-bulk').on('click', () => $('#dataBase').dialog('open'));
-  $('#button-create-bulk').on('click', () => $('#error').dialog('open'));
+  $('#button-create-bulk').on('click', () => $('#dataBase').dialog('open'));
 
 };
 
