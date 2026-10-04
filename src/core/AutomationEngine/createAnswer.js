@@ -10,14 +10,20 @@ const createAnswer = async (data, questionId) => {
       body: formData,
       credentials: 'same-origin'
     });
+
     if (response.ok) {
       return {
         success: true,
       };
     }
+
+    return {
+      success: false,
+      error: `o servidor respondeu HTTP ${response.status} ao criar uma resposta`,
+    };
   } catch (error) {
     return {
-      success: true,
+      success: false,
       error: error.message,
     };
   }
