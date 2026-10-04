@@ -3,6 +3,7 @@ import { pages } from '@constants';
 import fixEditCardsUI from '@utils/fixEditCardsUI';
 
 import ButtonCreateBulk from '@components/ButtonCreateBulk';
+import ButtonDownloadSelected from '@components/ButtonDownloadSelected';
 import ModalConfirm from '@components/ModalConfirm';
 import ModalDBSelect from '@components/ModalDBSelect';
 import ModalError from '@components/ModalError';
@@ -16,6 +17,7 @@ const initUI = (page) => {
     ModalExecution(page);
     ModalError();
     ButtonCreateBulk(page);
+    ButtonDownloadSelected(page);
   } else if (page === pages.EDIT) {
     fixEditCardsUI();
   }

@@ -8,6 +8,10 @@ export const handleCloseExecution = () => {
   $('#execution').dialog('close');
 };
 
+export const handleSetRollbackText = () => {
+  $('#execution-ongoing > p').first().text('Ocorreu um erro. Desfazendo a importação, aguarde..');
+};
+
 export const handleSetCurrentExecution = (current) => {
   $('#execution-current').text(current);
 };

@@ -68,3 +68,8 @@ div#error p{
   height: 80px;
   color: red;
 }
+
+.btn-loading {
+  opacity: 0.5;
+  cursor: wait !important;
+}

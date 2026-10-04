@@ -1,18 +1,28 @@
+import applyPositions from './applyPositions';
 import createCard from './createCard';
 import createQuestion from './createQuestion';
 import getStatus from './getStatus';
+import { getLastRecordId, getRecordIdsCreatedAfter } from './getRecordIds';
 import getSubjects from './getSubjects';
 import resolveReferences from './resolveReferences';
+import rollbackImport from './rollbackImport';
 
-import { pages } from '@constants';
+import { pages, records } from '@constants';
 
 import { handleCallErrorModal } from '@components/ModalError/handlers';
-import { handleCloseExecution, handleSetCurrentExecution, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
+import { handleCloseExecution, handleSetCurrentExecution, handleSetRollbackText, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
 
 import delay from '@utils/delay';
 
 
 const automationEngine = async (page) => {
+  const isCardsPage = page === pages.CARDS;
+  const record = records[page];
+  let disciplineId;
+  // Maior id de registro da disciplina antes da importação; definido apenas quando há algo a desfazer.
+  let lastIdBefore;
+  let attempts = 0;
+
   try {
     const storedCsvData = localStorage.getItem('csvData');
 
@@ -21,7 +31,7 @@ const automationEngine = async (page) => {
     }
 
     const csvData = JSON.parse(storedCsvData).map(row => Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value?.toString() || ''])));
-    const disciplineId = localStorage.getItem('pageId');
+    disciplineId = localStorage.getItem('pageId');
     const subjects = await getSubjects(disciplineId);
 
     // Valida todos os assuntos e status antes de criar qualquer registro.
@@ -31,9 +41,12 @@ const automationEngine = async (page) => {
       throw new Error(`${errors.join('\n\n')}\n\nNenhum registro foi criado.`);
     }
 
-    const createRecord = page === pages.CARDS ? createCard : createQuestion;
+    lastIdBefore = await getLastRecordId(record.screen, disciplineId);
+
+    const createRecord = isCardsPage ? createCard : createQuestion;
 
     for (const [i, { row, subjectId, statusId }] of rows.entries()) {
+      attempts++;
       const { success, error } = (await createRecord(subjectId, statusId, disciplineId, row)) || {};
 
       if (!success) {
@@ -43,14 +56,32 @@ const automationEngine = async (page) => {
       handleSetCurrentExecution(i + 1);
     }
 
+    if (isCardsPage && rows.some(({ row }) => parseInt(row.posicao, 10) > 0)) {
+      const createdIds = await getRecordIdsCreatedAfter(record.screen, disciplineId, lastIdBefore);
+
+      if (createdIds.length !== rows.length) {
+        throw new Error(`Esperava encontrar ${rows.length} cards recém-criados, mas foram encontrados ${createdIds.length}. As posições não puderam ser aplicadas com segurança.`);
+      }
+
+      await applyPositions(disciplineId, rows.map(({ row }) => row), createdIds);
+    }
+
     await delay(1000);
     handleSetSuccessfulExecutionText();
 
     await delay(2000);
     window.location.reload();
   } catch (error) {
+    let message = error.message;
+
+    // Importação é tudo ou nada: um erro no meio não pode deixar cards sem posição nem perguntas sem respostas.
+    if (lastIdBefore !== undefined) {
+      handleSetRollbackText();
+      message += `\n\n${await rollbackImport(record, disciplineId, lastIdBefore, attempts)}`;
+    }
+
     handleCloseExecution();
-    handleCallErrorModal(error.message);
+    handleCallErrorModal(message);
   }
 };
 
