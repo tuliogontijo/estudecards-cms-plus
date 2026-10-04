@@ -2,7 +2,7 @@ import { pages } from '@constants';
 
 import fixEditCardsUI from '@utils/fixEditCardsUI';
 
-import ButtonCreateBulk from '@components/buttonCreateBulk';
+import ButtonCreateBulk from '@components/ButtonCreateBulk';
 import ModalConfirm from '@components/ModalConfirm';
 import ModalDBSelect from '@components/ModalDBSelect';
 import ModalError from '@components/ModalError';
