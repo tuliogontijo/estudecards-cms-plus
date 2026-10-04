@@ -2,40 +2,56 @@ import createCard from './createCard';
 import createQuestion from './createQuestion';
 import getStatus from './getStatus';
 import getSubjects from './getSubjects';
+import resolveReferences from './resolveReferences';
 
 import { pages } from '@constants';
 
 import { handleCallErrorModal } from '@components/ModalError/handlers';
-import { handleSetCurrentExecution, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
+import { handleCloseExecution, handleSetCurrentExecution, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
 
 import delay from '@utils/delay';
 
 
 const automationEngine = async (page) => {
-  const csvData = JSON.parse(localStorage.getItem('csvData')).map(row => Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value?.toString() || ''])));
-  const disciplineId = localStorage.getItem('pageId');
-  const subjects = await getSubjects(disciplineId);
-  const status = getStatus();
+  try {
+    const storedCsvData = localStorage.getItem('csvData');
 
-  for (const [i, row] of csvData.entries()) {
-    const subjectId = subjects.find(subject => subject.subjectName === row.assunto.toLowerCase()).subjectId;
-    const statusId = status.find(status => status.statusName === row.status.toLowerCase()).statusId;
-
-    const { success, error } = page === pages.CARDS ? await createCard(subjectId, statusId, disciplineId, row) : await createQuestion(subjectId, statusId, disciplineId, row);
-
-    if (success) {
-      handleSetCurrentExecution(i + 1);
-    } else {
-      handleCallErrorModal(error);
-      break;
+    if (!storedCsvData) {
+      throw new Error('Nenhum CSV carregado. Envie o arquivo novamente.');
     }
+
+    const csvData = JSON.parse(storedCsvData).map(row => Object.fromEntries(Object.entries(row).map(([key, value]) => [key.toLowerCase(), value?.toString() || ''])));
+    const disciplineId = localStorage.getItem('pageId');
+    const subjects = await getSubjects(disciplineId);
+
+    // Valida todos os assuntos e status antes de criar qualquer registro.
+    const { rows, errors } = resolveReferences(csvData, subjects, getStatus());
+
+    if (errors.length) {
+      throw new Error(`${errors.join('\n\n')}\n\nNenhum registro foi criado.`);
+    }
+
+    const createRecord = page === pages.CARDS ? createCard : createQuestion;
+
+    for (const [i, { row, subjectId, statusId }] of rows.entries()) {
+      const { success, error } = (await createRecord(subjectId, statusId, disciplineId, row)) || {};
+
+      if (!success) {
+        throw new Error(`Falha na linha ${i + 2} do CSV: ${error || 'resposta inesperada do servidor'}.\n${i} de ${rows.length} registros já foram criados antes do erro.`);
+      }
+
+      handleSetCurrentExecution(i + 1);
+    }
+
+    await delay(1000);
+    handleSetSuccessfulExecutionText();
+
+    await delay(2000);
+    window.location.reload();
+  } catch (error) {
+    handleCloseExecution();
+    handleCallErrorModal(error.message);
   }
-
-  await delay(1000);
-  handleSetSuccessfulExecutionText();
-
-  await delay(2000);
-  window.location.reload();
 };
 
 

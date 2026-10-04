@@ -17,16 +17,32 @@ const createQuestion = async (subjectId, statusId, disciplineId, data) => {
       body: formData,
       credentials: 'same-origin'
     });
+
     if (response.ok) {
 
       const questionId = await getQuestionId();
 
-      answersFormattedData.forEach(async answer => await createAnswer(answer, questionId));
+      // Sequencial: garante a ordem das respostas e que erros não sejam perdidos.
+      for (const answer of answersFormattedData) {
+        const { success, error } = await createAnswer(answer, questionId);
+
+        if (!success) {
+          return {
+            success: false,
+            error,
+          };
+        }
+      }
 
       return {
         success: true,
       };
     }
+
+    return {
+      success: false,
+      error: `o servidor respondeu HTTP ${response.status}`,
+    };
   } catch (error) {
     return {
       success: false,

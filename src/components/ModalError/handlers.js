@@ -5,7 +5,7 @@ export const handleOpen = () => {
 
 export const handleCallErrorModal = (errorMessage) => {
   $('#error').dialog('open');
-  $('#error-description').text(errorMessage);
+  $('#error-description').val(errorMessage);
 };
 
 export const handleClickCloseBtn = () => {

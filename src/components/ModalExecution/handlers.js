@@ -4,6 +4,10 @@ export const handleClickCancel = () => {
   $('#execution').dialog('close');
 };
 
+export const handleCloseExecution = () => {
+  $('#execution').dialog('close');
+};
+
 export const handleSetCurrentExecution = (current) => {
   $('#execution-current').text(current);
 };
