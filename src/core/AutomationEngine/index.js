@@ -2,12 +2,12 @@ import applyPositions from './applyPositions';
 import createCard from './createCard';
 import createQuestion from './createQuestion';
 import getStatus from './getStatus';
-import { getCardIdsCreatedAfter, getLastCardId } from './getDisciplineCardIds';
+import { getLastRecordId, getRecordIdsCreatedAfter } from './getRecordIds';
 import getSubjects from './getSubjects';
 import resolveReferences from './resolveReferences';
-import rollbackCards from './rollbackCards';
+import rollbackImport from './rollbackImport';
 
-import { pages } from '@constants';
+import { pages, records } from '@constants';
 
 import { handleCallErrorModal } from '@components/ModalError/handlers';
 import { handleCloseExecution, handleSetCurrentExecution, handleSetRollbackText, handleSetSuccessfulExecutionText } from '@components/ModalExecution/handlers';
@@ -17,9 +17,10 @@ import delay from '@utils/delay';
 
 const automationEngine = async (page) => {
   const isCardsPage = page === pages.CARDS;
+  const record = records[page];
   let disciplineId;
-  // Maior id de card da disciplina antes da importação; definido apenas quando há algo a desfazer.
-  let lastCardIdBefore;
+  // Maior id de registro da disciplina antes da importação; definido apenas quando há algo a desfazer.
+  let lastIdBefore;
   let attempts = 0;
 
   try {
@@ -40,9 +41,7 @@ const automationEngine = async (page) => {
       throw new Error(`${errors.join('\n\n')}\n\nNenhum registro foi criado.`);
     }
 
-    if (isCardsPage) {
-      lastCardIdBefore = await getLastCardId(disciplineId);
-    }
+    lastIdBefore = await getLastRecordId(record.screen, disciplineId);
 
     const createRecord = isCardsPage ? createCard : createQuestion;
 
@@ -58,7 +57,7 @@ const automationEngine = async (page) => {
     }
 
     if (isCardsPage && rows.some(({ row }) => parseInt(row.posicao, 10) > 0)) {
-      const createdIds = await getCardIdsCreatedAfter(disciplineId, lastCardIdBefore);
+      const createdIds = await getRecordIdsCreatedAfter(record.screen, disciplineId, lastIdBefore);
 
       if (createdIds.length !== rows.length) {
         throw new Error(`Esperava encontrar ${rows.length} cards recém-criados, mas foram encontrados ${createdIds.length}. As posições não puderam ser aplicadas com segurança.`);
@@ -75,10 +74,10 @@ const automationEngine = async (page) => {
   } catch (error) {
     let message = error.message;
 
-    // Importação de cards é tudo ou nada: um erro no meio não pode deixar cards criados sem posição.
-    if (isCardsPage && lastCardIdBefore !== undefined) {
+    // Importação é tudo ou nada: um erro no meio não pode deixar cards sem posição nem perguntas sem respostas.
+    if (lastIdBefore !== undefined) {
       handleSetRollbackText();
-      message += `\n\n${await rollbackCards(disciplineId, lastCardIdBefore, attempts)}`;
+      message += `\n\n${await rollbackImport(record, disciplineId, lastIdBefore, attempts)}`;
     }
 
     handleCloseExecution();
