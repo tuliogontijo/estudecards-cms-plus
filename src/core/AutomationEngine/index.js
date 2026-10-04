@@ -1,3 +1,4 @@
+import applyPositions from './applyPositions';
 import createCard from './createCard';
 import createQuestion from './createQuestion';
 import getStatus from './getStatus';
@@ -41,6 +42,14 @@ const automationEngine = async (page) => {
       }
 
       handleSetCurrentExecution(i + 1);
+    }
+
+    if (page === pages.CARDS) {
+      const { success, error } = await applyPositions(disciplineId, rows.map(({ row }) => row));
+
+      if (!success) {
+        throw new Error(error);
+      }
     }
 
     await delay(1000);
