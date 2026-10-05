@@ -28,10 +28,6 @@
   width: calc(100% - 22px);
 }
 
-#rows-quantity {
-  padding: 0px !important;
-}
-
 .execution-container {
   display: flex;
   align-items: center;

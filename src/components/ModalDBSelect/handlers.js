@@ -1,5 +1,7 @@
 import csvProcessor from '@core/csvProcessor';
 
+import { handleSummary } from '@components/ModalConfirm/handlers';
+
 export const handleClickCancel = () => {
   $('#dataBase').dialog('close');
   $('#dataBase small').remove();
@@ -15,7 +17,7 @@ export const handleClickSend = async (page) => {
 
     if (isValid) {
       localStorage.setItem('csvData', JSON.stringify(data));
-      $('#rows-quantity').text(data.length);
+      handleSummary(data, page);
       $('#execution-total').text(data.length);
       $('#dataBase').dialog('close');
       $('#confirm').dialog('open');

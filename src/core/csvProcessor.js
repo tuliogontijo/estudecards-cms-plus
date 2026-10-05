@@ -15,7 +15,6 @@ const csvProcessor = async (file, page) => {
       header: true,
       skipEmptyLines: 'greedy',
       encoding,
-      dynamicTyping: true,
       complete: results => {
         const { data } = results;
         const { isValid, errors } = validateCSV(data, page);

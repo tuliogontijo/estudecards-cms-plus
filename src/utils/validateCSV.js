@@ -8,6 +8,7 @@ const validateCSV = (data, page) => {
   const errors = [];
 
   const acceptedCardHeaders = {
+    id: { headers: ['id', 'código', 'codigo'], required: false },
     pergunta: { headers: ['pergunta', 'perguntas'], required: true },
     resposta: { headers: ['resposta', 'respostas'], required: true },
     comentario: { headers: ['comentário', 'comentários', 'comentario', 'comentarios'], required: true },
@@ -118,7 +119,8 @@ const validateCSV = (data, page) => {
 
   });
 
-  page === pages.CARDS && errors.push(...validatePositions(data));
+  errors.push(...validateIntegerColumn(data, 'id', 'ID', 'em branco = novo registro'));
+  page === pages.CARDS && errors.push(...validateIntegerColumn(data, 'posicao', 'POSIÇÃO', '0 ou em branco = sem posição definida'));
 
   missignCorrectAnswers.length && errors.push(`A planilha possui linhas sem valores na coluna "CORRETA". As linhas com erros são: (${missignCorrectAnswers.join(', ')})`);
 
@@ -136,38 +138,42 @@ const validateCSV = (data, page) => {
 
 };
 
-const validatePositions = (data) => {
+/**
+ * Valida uma coluna opcional de inteiros não negativos sem repetição (0 e vazio = sem valor).
+ * Normaliza os valores válidos para número; não faz nada se a coluna não existir.
+ */
+const validateIntegerColumn = (data, key, label, emptyMeaning) => {
   const errors = [];
   const invalidLines = [];
-  const linesByPosition = {};
+  const linesByValue = {};
 
   data.forEach((row, index) => {
-    const line = index + 2;
-    const position = parsePosition(row.posicao);
+    if (row[key] === undefined) return;
 
-    if (position === null) {
+    const line = index + 2;
+    const value = parseInteger(row[key]);
+
+    if (value === null) {
       invalidLines.push(line);
-    } else if (position > 0) {
-      row.posicao = position;
-      (linesByPosition[position] ||= []).push(line);
-    } else if (row.posicao !== undefined) {
-      row.posicao = 0;
+    } else {
+      row[key] = value;
+      value > 0 && (linesByValue[value] ||= []).push(line);
     }
   });
 
-  invalidLines.length && errors.push(`A coluna "POSIÇÃO" aceita apenas números inteiros (0 ou em branco = sem posição definida). As linhas com valores inválidos são: (${invalidLines.join(', ')})`);
+  invalidLines.length && errors.push(`A coluna "${label}" aceita apenas números inteiros (${emptyMeaning}). As linhas com valores inválidos são: (${invalidLines.join(', ')})`);
 
-  const repeated = Object.entries(linesByPosition).filter(([, lines]) => lines.length > 1);
+  const repeated = Object.entries(linesByValue).filter(([, lines]) => lines.length > 1);
 
-  repeated.length && errors.push(`A coluna "POSIÇÃO" possui valores repetidos: ${repeated.map(([position, lines]) => `${position} (linhas ${lines.join(', ')})`).join('; ')}`);
+  repeated.length && errors.push(`A coluna "${label}" possui valores repetidos: ${repeated.map(([value, lines]) => `${value} (linhas ${lines.join(', ')})`).join('; ')}`);
 
   return errors;
 };
 
 /**
- * Retorna a posição como inteiro (0 = sem posição) ou null se o valor for inválido.
+ * Retorna o valor como inteiro (vazio = 0) ou null se for inválido.
  */
-const parsePosition = (value) => {
+const parseInteger = (value) => {
   if (value === undefined || value === null) return 0;
 
   const text = value.toString().trim();

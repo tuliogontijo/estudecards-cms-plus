@@ -15,5 +15,17 @@ export const handleClickBack = () => {
   $('#dataBase').dialog('open');
 };
 
-export const handleQuantity = (quantity) => $('#rows-quantity').text(quantity);
+/**
+ * Texto de confirmação: linhas sem ID incluem registros; linhas com ID atualizam os existentes.
+ */
+export const handleSummary = (data, page) => {
+  const updates = data.filter(row => parseInt(row.id, 10) > 0).length;
+  const creates = data.length - updates;
+  const actions = [
+    creates ? `incluir ${creates}` : '',
+    updates ? `atualizar ${updates}` : '',
+  ].filter(Boolean).join(' e ');
+
+  $('#confirm-summary').text(`Você tem certeza de que deseja ${actions} ${page.toLowerCase()}?`);
+};
 

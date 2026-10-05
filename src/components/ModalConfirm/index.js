@@ -6,7 +6,7 @@ const ModalConfirm = (page = 'registros') => {
 
   $('body').append(`
   <div id="confirm" title="Confirmação">
-    <p>Você tem certeza de que deseja incluir <span id="rows-quantity"></span> ${page}?</p>
+    <p id="confirm-summary"></p>
   </div>
   `);
 
