@@ -89,6 +89,20 @@ As respostas removidas são desativadas porque podem estar referenciadas em simu
 - Primeira linha com os nomes das colunas. Os nomes não diferenciam maiúsculas de minúsculas e podem ser escritos com ou sem acento (`Comentário` ou `Comentario`, `Posição` ou `Posicao`);
 - O arquivo baixado pela extensão é UTF-8 e abre diretamente no Excel.
 
+### Nomes de assuntos e status
+
+Os valores das colunas **Assunto** e **Status** são comparados de forma tolerante com os nomes cadastrados no CMS. São considerados iguais nomes que diferem apenas por:
+
+- maiúsculas e minúsculas (`CRASE` = `Crase`);
+- acentos e cedilha (`Hifen` = `Hífen`, `Oracoes adjetivas` = `Orações adjetivas`);
+- pontuação no final, como o ponto final que agentes de IA costumam acrescentar (`Crase.` = `Crase`; também `…`, `,`, `;` e `:`);
+- espaços extras, inclusive ao redor de hífen e barra (`Concordância verbal / nominal` = `Concordância verbal/nominal`);
+- variantes tipográficas comuns em textos do Word ou de IA: aspas curvas (`“que”` = `"que"`), travessões (`–`, `—` = `-`), espaço não separável e caracteres invisíveis.
+
+Outras diferenças continuam valendo: `Crases` e `Crase?` não correspondem a `Crase`.
+
+Se um nome da planilha corresponder a mais de um assunto cadastrado (por exemplo, a disciplina tem `Crase` e `crase.` como assuntos distintos), a importação é recusada indicando os assuntos envolvidos, para que sejam renomeados no CMS.
+
 ### Cards
 
 | Coluna | Obrigatória | Conteúdo |
@@ -141,7 +155,7 @@ O CSV baixado traz o conteúdo em HTML, como é armazenado no CMS. Ao reenviá-l
 Antes de criar ou alterar qualquer registro, a extensão verifica:
 
 - Colunas obrigatórias presentes e ausência de colunas não reconhecidas;
-- Assuntos existentes na disciplina e status válidos;
+- Assuntos existentes na disciplina e status válidos (veja [Nomes de assuntos e status](#nomes-de-assuntos-e-status));
 - Colunas ID e Posição apenas com números inteiros e sem valores repetidos;
 - Alternativa correta correspondente a uma resposta preenchida (perguntas);
 - IDs pertencentes à disciplina aberta.

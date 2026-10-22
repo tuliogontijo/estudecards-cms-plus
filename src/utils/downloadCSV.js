@@ -1,11 +1,14 @@
 import Papa from 'papaparse';
 
+// Marca de ordem de bytes: faz o Excel abrir o CSV como UTF-8.
+const UTF8_BOM = String.fromCharCode(0xFEFF);
+
 /**
  * Gera e baixa um CSV no layout de importação da extensão (separador ";", UTF-8 com BOM para o Excel).
  */
 const downloadCSV = (fields, data, fileName) => {
   const csv = Papa.unparse({ fields, data }, { delimiter: ';' });
-  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
+  const blob = new Blob([UTF8_BOM + csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
